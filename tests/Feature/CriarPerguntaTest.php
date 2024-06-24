@@ -31,8 +31,29 @@ it('Deve ser capaz de criar uma nova pergunta com mais de 255 caracteres', funct
 });
 
 it('Deveria verificar se termina com ponto de interrogação ?', function (){
+    // Arrange :: preparar
 
+    $user = User::factory()->create();
 
+    actingAs($user);
+
+    // Act :: agir
+
+    $request = post(route('pergunta.criar'), [
+
+        'pergunta' => str_repeat('*', 10),
+        
+    ]);
+
+    // Asserr :: verificar
+
+    $request->assertSessionHasErrors([
+
+        'pergunta' => 'Tem certeza que isto é uma pergunta? Faltou o ponto de interrogação no final.'
+
+    ]);
+
+    assertDatabaseCount('perguntas', 0);
 });
 
 it('Deve ter pelo menos 10 caracteres', function (){
