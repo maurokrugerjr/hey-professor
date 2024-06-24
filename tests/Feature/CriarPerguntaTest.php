@@ -19,14 +19,14 @@ it('Deve ser capaz de criar uma nova pergunta com mais de 255 caracteres', funct
     // Act :: agir
 
     $request = post(route('pergunta.criar'), [
-       'question' => str_repeat('*', 260) . '?',
+       'pergunta' => str_repeat('*', 260) . '?',
     ]);
 
     // Asserr :: verificar
 
     $request->assertRedirect(route('dashboard'));
     assertDatabaseCount('perguntas', 1);
-    assertDatabaseHas('perguntas', ['question' => str_repeat('*', 260) . '?']);
+    assertDatabaseHas('perguntas', ['pergunta' => str_repeat('*', 260) . '?']);
 
 });
 
@@ -45,13 +45,13 @@ it('Deve ter pelo menos 10 caracteres', function (){
 
     // Act :: agir
 
-    $request = \Pest\Laravel\post(route('pergunta.criar'), [
-        'question' => str_repeat('*', 9) . '?',
+    $request = post(route('pergunta.criar'), [
+        'pergunta' => str_repeat('*', 8) . '?',
     ]);
 
     // Asserr :: verificar
 
-    $request->assertSessionHasErrors(['question']);
+    $request->assertSessionHasErrors(['pergunta' => __('validation.min.string', ['min' =>10, 'attribute' => 'pergunta'])]);
 
-    \Pest\Laravel\assertDatabaseHas('questions', ['question' => 0]);
+    assertDatabaseCount('perguntas', 0);
 });

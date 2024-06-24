@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class PerguntaController extends Controller
 {
-    public function criar (): RedirectResponse
+    public function store (): RedirectResponse
     {
         $attributes = \request()->validate([
-            'question' => ['required']
+            'pergunta' => ['required', 'min:10']
         ]);
 
         Pergunta::query()->create($attributes);

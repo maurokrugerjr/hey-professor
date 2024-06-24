@@ -12,7 +12,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('pergunta/criar', [PerguntaController::class, 'criar'])->name('pergunta.criar');
+Route::post('pergunta/criar', [PerguntaController::class, 'store'])->name('pergunta.criar');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
