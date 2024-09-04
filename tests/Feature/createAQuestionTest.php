@@ -1,0 +1,36 @@
+<?php
+
+use App\Models\User;
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseCount;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\post;
+
+it('Should be able to create a new question bigger than 255 characters', function (){
+    // Ao desenvolver teste você sempre precisa lembrar dos AAA
+
+    // Arrange = Preparar
+    $user = User::factory()->create(); //Criar usuário
+
+    actingAs($user); //Logar com o usuário
+
+    // Act = Agir
+    post(route('question.store'), [
+        'question' => str_repeat('*', 260) . '?', //Cria a pergunta
+    ]);
+
+    //Assert = Verificar
+    $request = post(route('dashboard'));
+
+    assertDatabaseCount('questions', 1);
+    assertDatabaseHas('questions', ['question' => str_repeat('*', 260) . '?']);
+
+});
+
+it('Should check if ends with question mark ?', function (){
+
+});
+
+it('Should have at least 10 charascters', function (){
+
+});
