@@ -34,7 +34,7 @@ it('Should check if ends with question mark ?', function () {
     ]);
 
     $request->assertSessionHasErrors([
-        'question' => 'Are you sure that is a question? It is missing the question mark in the end.',
+        'question'    => 'Are you sure that is a question? It is missing the question mark in the end.',
     ]);
     assertDatabaseCount('questions', 0);
 });
