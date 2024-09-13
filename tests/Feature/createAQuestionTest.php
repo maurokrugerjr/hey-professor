@@ -1,12 +1,10 @@
 <?php
 
 use App\Models\User;
-use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertDatabaseCount;
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\post;
 
-it('Should be able to create a new question bigger than 255 characters', function (){
+use function Pest\Laravel\{actingAs, assertDatabaseCount, assertDatabaseHas, post};
+
+it('Should be able to create a new question bigger than 255 characters', function () {
     // Ao desenvolver teste você sempre precisa lembrar dos AAA
 
     // Arrange = Preparar
@@ -27,7 +25,7 @@ it('Should be able to create a new question bigger than 255 characters', functio
 
 });
 
-it('Should check if ends with question mark ?', function (){
+it('Should check if ends with question mark ?', function () {
     $user = User::factory()->create();
     actingAs($user);
 
@@ -36,12 +34,12 @@ it('Should check if ends with question mark ?', function (){
     ]);
 
     $request->assertSessionHasErrors([
-        'question' => 'Are you sure that is a question? It is missing the question mark in the end.'
+        'question' => 'Are you sure that is a question? It is missing the question mark in the end.',
     ]);
     assertDatabaseCount('questions', 0);
 });
 
-it('Should have at least 10 charascters', function (){
+it('Should have at least 10 charascters', function () {
     $user = User::factory()->create();
     actingAs($user);
 
